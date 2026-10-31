@@ -1,0 +1,30 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Working data, in case the project folder is placed inside the repository
+input/
+output/
+logs/
+
+# Never commit photos (privacy): test images are generated on the fly
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.png
+*.zip

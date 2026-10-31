@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photo-restore"
+dynamic = ["version"]
+description = "Recover phone-camera JPEGs whose image data is damaged: re-aligns shifted blocks, fixes colour casts, crops what is lost."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "Shyam-prakash"}]
+requires-python = ">=3.10"
+keywords = ["jpeg", "photo recovery", "image restoration", "corrupted images", "data recovery"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: System :: Recovery Tools",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pillow>=10.0",
+    "opencv-python-headless>=4.8",
+    "numba>=0.59",
+    "tqdm>=4.60",
+    "psutil>=5.9",
+]
+
+[project.optional-dependencies]
+ui = ["streamlit>=1.40"]
+test = ["pytest>=7"]
+dev = ["pytest>=7", "ruff>=0.5", "streamlit>=1.40"]
+
+[project.urls]
+Homepage = "https://github.com/Shyam-prakash/Image_recovery_application"
+Issues = "https://github.com/Shyam-prakash/Image_recovery_application/issues"
+
+[project.scripts]
+photo-restore = "photo_restore.cli:main"
+
+[tool.setuptools]
+packages = ["photo_restore"]
+
+[tool.setuptools.dynamic]
+version = {attr = "photo_restore.__version__"}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "I"]
+ignore = [
+    "E501",    # long lines are allowed where splitting hurts readability
+    "SIM108",  # if/else blocks are clearer than ternaries for multi-line logic
+    "E702",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["photo_restore", "conftest"]
+
+[tool.ruff.lint.per-file-ignores]
+"photo_restore/cli.py" = ["E402"]   # env vars must be set before numpy is imported
